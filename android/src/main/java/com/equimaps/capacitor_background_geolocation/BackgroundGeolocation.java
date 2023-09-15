@@ -140,7 +140,7 @@ public class BackgroundGeolocation extends Plugin {
         service.addWatcher(
                 call.getCallbackId(),
                 backgroundNotification,
-                call.getFloat("distanceFilter", 0f)
+                call.getBoolean("viaviMca", false)
         );
     }
 
