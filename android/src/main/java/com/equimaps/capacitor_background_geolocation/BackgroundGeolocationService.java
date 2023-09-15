@@ -78,16 +78,19 @@ public class BackgroundGeolocationService extends Service {
         void addWatcher(
                 final String id,
                 Notification backgroundNotification,
-                float distanceFilter
+                boolean viaviMca
         ) {
             FusedLocationProviderClient client = LocationServices.getFusedLocationProviderClient(
                     BackgroundGeolocationService.this
             );
             LocationRequest locationRequest = new LocationRequest();
-            locationRequest.setMaxWaitTime(1000);
-            locationRequest.setInterval(1000);
-            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setSmallestDisplacement(distanceFilter);
+            if(viaviMca) {
+                locationRequest.setInterval(1000);
+                locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            } else {
+                locationRequest.setInterval(60000);
+                locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+            }
 
             LocationCallback callback = new LocationCallback(){
                 @Override
