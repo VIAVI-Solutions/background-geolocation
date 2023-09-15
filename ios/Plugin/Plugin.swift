@@ -85,14 +85,11 @@ public class BackgroundGeolocation : CAPPlugin, CLLocationManagerDelegate {
             )
             let manager = watcher.locationManager
             manager.delegate = self
-            let externalPower = [
-                .full,
-                .charging
-            ].contains(UIDevice.current.batteryState)
+            let viaviMca = call.getBool("viaviMca") ?? false
             manager.desiredAccuracy = (
-                externalPower
+                viaviMca
                 ? kCLLocationAccuracyBestForNavigation
-                : kCLLocationAccuracyBest
+                : kCLLocationAccuracyHundredMeters
             )
             var distanceFilter = call.getDouble("distanceFilter")
             // It appears that setting manager.distanceFilter to 0 can prevent
